@@ -1,0 +1,18 @@
+application:
+  name: 应用名
+
+
+spring:
+  thymeleaf:
+    cache: true
+    mode: HTML
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: demo
+    password: 123456
+    url: jdbc:mysql://localhost:3306/car? ：useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    initialization-mode: never
+    sql-script-encoding: UTF-8

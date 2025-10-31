@@ -1,0 +1,34 @@
+application:
+  name: 测试名
+  jwt:
+    token: "jkan46DsBJasKL78dfFAbovasd"
+    ttl: 36000000
+    remember-me: 604800000
+    ignore-path:
+      [ "/test/login", "/login", "/test/encode"]
+  encryption:
+    # secret-key需要为 16/24/32
+    secret-key: "aU7tB9cJ6bG9tZ0uG4sI4hJ5yI5zS9dA"
+    salt: ""
+
+spring:
+  thymeleaf:
+    cache: false  # true for product
+    mode: HTML
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: demo
+    password: 123456
+    url: jdbc:mysql://localhost:3306/db_server?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    initialization-mode: always
+    sql-script-encoding: UTF-8
+    schema:
+      - classpath:schema.sql
+    data:
+      - classpath:data.sql
+#logging:
+#  level:
+#    com.example.mydemo.dao.impl.mapper: DEBUG
