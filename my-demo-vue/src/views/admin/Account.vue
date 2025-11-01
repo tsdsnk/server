@@ -165,7 +165,7 @@ import { Search } from '@element-plus/icons-vue'
 import { reactive } from 'vue'
 import { computed, ref, onMounted } from 'vue' 
 import { api } from '../../service/api'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 interface AccountInfo{
     accountName: string,
@@ -210,6 +210,7 @@ onMounted(() => {
 interface NewAccountRequest {
   accountName: string | null
   password: string | null
+  role: string | null
   name: string | null
 }
 
@@ -305,6 +306,7 @@ const onSubmitEditAccount = async (formEl: FormInstance | undefined) => {
     if (response.code === 200){
         ElMessage.success("Edit account success")
         fetchAccountInfo()
+        editAccountDialogVisible.value = false
       }
       else{
         ElMessage.error("Edit account fail")
@@ -315,8 +317,19 @@ const onSubmitEditAccount = async (formEl: FormInstance | undefined) => {
 
 }
 
+
+
 const deleteAccount = async (row) => {
-  try{
+  ElMessageBox.confirm(
+    `Account ${row.accountName}: ${row.name} will be deleted, continue?`,
+    'Warning',
+    {
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Cancel',
+      type: 'warning',
+    }
+  ).then(async () =>{
+    try{
     const response = await api.post(`/admin/account/delete?accountName=${row.accountName}`)
     if (response.code === 200){
         ElMessage.success("Delete account success")
@@ -328,6 +341,12 @@ const deleteAccount = async (row) => {
     }catch (error){
       ElMessage.error("Delete account fail")
     }
+  })
+    .catch(()=>{ElMessage({
+        type: 'info',
+        message: 'Delete canceled',
+      })})
+  
   
 }
 

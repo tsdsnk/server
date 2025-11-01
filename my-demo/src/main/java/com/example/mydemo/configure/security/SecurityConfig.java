@@ -1,5 +1,6 @@
 package com.example.mydemo.configure.security;
 
+import com.example.mydemo.configure.ApplicationConfig;
 import com.example.mydemo.service.AuthorizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -42,10 +43,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private ApplicationConfig applicationConfig;
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:5173"));
+        configuration.setAllowedOrigins(Collections.singletonList(applicationConfig.getFrontend()));
         configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "OPTIONS", "DELETE"));
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(Collections.singletonList("*"));
@@ -54,15 +58,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
-
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/api/**")
-//                .allowedOrigins("http://localhost:5173")
-//                .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")
-//                .allowedHeaders("*")
-//                .allowCredentials(true);
-//    }
 
     @Override
     @Bean

@@ -1,14 +1,16 @@
 application:
   name: 测试名
+  frontend: "http://localhost:5173"
   jwt:
     token: "jkan46DsBJasKL78dfFAbovasd"
     ttl: 36000000
     remember-me: 604800000
     ignore-path:
-      [ "/test/login", "/login", "/test/encode"]
+      ["/login"]
   encryption:
     # secret-key需要为 16/24/32 位
     secret-key: "aU7tB9cJ6bG9tZ0uG4sI4hJ5yI5zS9dA"
+
 
 strategy:
   max-application-strategy: 3
