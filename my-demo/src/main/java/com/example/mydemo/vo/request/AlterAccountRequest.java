@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 
 @Data
 public class AlterAccountRequest {
-    @Size(min = 1, max = 32)
+
     String accountName;
     @NotBlank @Size(min = 1, max = 32)
     String password;

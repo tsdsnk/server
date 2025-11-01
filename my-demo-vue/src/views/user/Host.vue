@@ -234,7 +234,7 @@ const fetchHostInfo = async () => {
       const response = await api.get("/user/info")
       if (response.code === 200){
         allHostInfos.value = response.data
-        console.log(response.data)
+        // console.log(response.data)
       }
     }catch (error){
       console.log(error)
@@ -297,12 +297,23 @@ const onSubmitApply =  async (formEl: FormInstance | undefined) => {
     }
     try{
     const response = await api.post("/user/apply", applyForm)
-    if (response.code === 200 && response.data === 'success'){
-        ElMessage.success("Submit application success")
+    // console.log(response)
+    if (response.code === 200 ){
+      if (response.data === 'success'){
+        ElMessage.success("Approved")
+        applyDialogVisible.value = false
+      }else if(response.data.startsWith("Unprocessable:")){
+        ElMessage.warning({message:"Submission successful but cannot be processed automatically, please concat the administrator. " + response.data
+        , duration:8000})
+        applyDialogVisible.value = false
+      }else{
+        ElMessage.error(response.data)
+      }
+        
         
       }
       else{
-        ElMessage.error("Fail")
+        ElMessage.error("Fail: " + response.data)
       }
       fetchHostInfo()
     }catch (error){
@@ -339,7 +350,7 @@ const onConfirmDelete= async(ip)=>{
         fetchHostInfo()
       }
       else{
-        ElMessage.error("Fail")
+        ElMessage.error("Fail: " + response.data)
       }
       
     }catch (error){

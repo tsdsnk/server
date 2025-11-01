@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface UserService {
     public List<UserHostView> getHostInfo(String userAccount) throws BaseException;
-    public void apply(String userAccount, UserApplyRequest param) throws BaseException;
+    public String apply(String userAccount, UserApplyRequest param) throws BaseException;
     public void deleteApplication(String userAccount, String ip) throws BaseException;
 }

@@ -37,14 +37,14 @@ api.interceptors.request.use(
 api.interceptors.response.use(
     (response) => {
         if(response.data.code === 401 || response.data.code === 403) {
-            window.location.href = '/login';
+            // window.location.href = '/login';
         }
         return response.data;
     },
     (error) => {
         if (error.response?.status === 401 || error.response?.status === 403) {
             cookieUtil.removeToken();
-            window.location.href = '/login';
+            // window.location.href = '/login';
         }
         return Promise.reject(error);
     }

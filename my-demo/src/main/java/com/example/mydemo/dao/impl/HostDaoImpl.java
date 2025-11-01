@@ -139,6 +139,17 @@ public class HostDaoImpl implements HostDao{
         }
     }
 
+    @Override
+    public HostAdminAccount selectHostAdminAccount(String ip) throws BaseException {
+        HostAdminAccountFilter filter =  new HostAdminAccountFilter();
+        filter.setIp(ip);
+        List<HostAdminAccount> hostAdminAccounts = selectHostAdminAccount(filter);
+        if(hostAdminAccounts.isEmpty()){
+            throw new JsonException(ResponseStatus.BAD_REQUEST, "host admin account not found");
+        }
+        return hostAdminAccounts.get(0);
+    }
+
     private LambdaQueryWrapper<HostEntity> buildQueryWrapper(HostFilter filter){
         LambdaQueryWrapper<HostEntity> queryWrapper = new LambdaQueryWrapper<>();
         if(filter!=null){

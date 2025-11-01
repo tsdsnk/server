@@ -315,8 +315,20 @@ const onSubmitEditAccount = async (formEl: FormInstance | undefined) => {
 
 }
 
-const deleteAccount = () => {
-
+const deleteAccount = async (row) => {
+  try{
+    const response = await api.post(`/admin/account/delete?accountName=${row.accountName}`)
+    if (response.code === 200){
+        ElMessage.success("Delete account success")
+        fetchAccountInfo()
+      }
+      else{
+        ElMessage.error("Fail: " + response.data)
+      }
+    }catch (error){
+      ElMessage.error("Delete account fail")
+    }
+  
 }
 
 const filterForm = reactive({

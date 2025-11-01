@@ -28,8 +28,7 @@ public class UserController {
     @PostMapping("/apply")
     @PreAuthorize("hasAuthority('ROLE_USER')")
     public Response apply(@AuthenticationPrincipal UserPrincipal userPrincipal, @Valid @RequestBody UserApplyRequest param) throws BaseException {
-        userService.apply(userPrincipal.getUsername(), param);
-        return Response.ofSuccess("success");
+        return Response.ofSuccess(userService.apply(userPrincipal.getUsername(), param));
     }
 
     @PostMapping("/delete")

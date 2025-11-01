@@ -7,9 +7,12 @@ application:
     ignore-path:
       [ "/test/login", "/login", "/test/encode"]
   encryption:
-    # secret-key需要为 16/24/32
+    # secret-key需要为 16/24/32 位
     secret-key: "aU7tB9cJ6bG9tZ0uG4sI4hJ5yI5zS9dA"
-    salt: ""
+
+strategy:
+  max-application-strategy: 3
+
 
 spring:
   thymeleaf:

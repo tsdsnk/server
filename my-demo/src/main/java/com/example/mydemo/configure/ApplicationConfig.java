@@ -11,10 +11,4 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "application")
 public class ApplicationConfig {
     private String name;
-
-    @Bean
-    public BCryptPasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
-    }
-
 }

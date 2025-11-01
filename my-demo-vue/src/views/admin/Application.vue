@@ -231,7 +231,7 @@ const approve = async(row: Application) => {
         if(response.code === 200){
             ElMessage.success(`Approve user[${row.name}] on ${row.ip}: Success`)
         }else{
-            ElMessage.error(`Approve user[${row.name}] on ${row.ip}: Fail`)
+            ElMessage.error(`Approve user[${row.name}] on ${row.ip}: Fail: ${response.data}`)
         }
     }catch (error){
         ElMessage.error(`Approve user[${row.name}] on ${row.ip}: Fail`)
@@ -244,7 +244,7 @@ const reject = async(row: Application) => {
         if(response.code === 200){
             ElMessage.success(`Rejcet user[${row.name}] on ${row.ip}: Success`)
         }else{
-            ElMessage.error(`Reject user[${row.name}] on ${row.ip}: Fail`)
+            ElMessage.error(`Reject user[${row.name}] on ${row.ip}: Fail: ${response.data}`)
         }
     }catch (error){
         ElMessage.error(`Reject user[${row.name}] on ${row.ip}: Fail`)
@@ -258,7 +258,7 @@ const remove = async(row: Application) => {
         if(response.code === 200){
             ElMessage.success(`Delete user[${row.name}] on ${row.ip}: Success`)
         }else{
-            ElMessage.error(`Delete user[${row.name}] on ${row.ip}: Fail`)
+            ElMessage.error(`Delete user[${row.name}] on ${row.ip}: Fail: ${response.data}`)
         }
     }catch (error){
         ElMessage.error(`Delete user[${row.name}] on ${row.ip}: Fail`)

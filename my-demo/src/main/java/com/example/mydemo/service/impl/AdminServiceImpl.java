@@ -1,10 +1,13 @@
 package com.example.mydemo.service.impl;
 
 import com.example.mydemo.constant.ApplicationStatus;
+import com.example.mydemo.constant.ResponseStatus;
 import com.example.mydemo.dao.AccountDao;
 import com.example.mydemo.dao.ApplicationDao;
 import com.example.mydemo.dao.HostDao;
 import com.example.mydemo.exception.BaseException;
+import com.example.mydemo.exception.JsonException;
+import com.example.mydemo.exception.UnprocessableException;
 import com.example.mydemo.service.AdminService;
 import com.example.mydemo.service.AutoApplicationService;
 import com.example.mydemo.vo.Account;
@@ -42,10 +45,14 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void approve(String accountName, String ip) throws BaseException {
-        Application application = applicationDao.selectApplication(ip, accountName);
-        application.setStatus(ApplicationStatus.APPROVED);
-        autoApplicationService.execApply(application);
-        applicationDao.updateApplication(application);
+        try{
+            Application application = applicationDao.selectApplication(ip, accountName);
+            application.setStatus(ApplicationStatus.APPROVED);
+            autoApplicationService.execApply(application);
+            applicationDao.updateApplication(application);
+        }catch (UnprocessableException e){
+            throw new JsonException(ResponseStatus.UNKNOWN_ERROR, e.getMessage());
+        }
     }
 
     @Override
@@ -57,9 +64,15 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void deleteApplication(String accountName, String ip) throws BaseException {
-        Application application = applicationDao.selectApplication(ip, accountName);
-        autoApplicationService.execDelete(application);
-        applicationDao.deleteApplication(accountName, ip);
+        try{
+            Application application = applicationDao.selectApplication(ip, accountName);
+            if(application.getStatus() == ApplicationStatus.APPROVED){
+                autoApplicationService.execDelete(application);
+            }
+            applicationDao.deleteApplication(accountName, ip);
+        }catch (UnprocessableException e){
+            throw new JsonException(ResponseStatus.UNKNOWN_ERROR, e.getMessage());
+        }
     }
 
     @Override

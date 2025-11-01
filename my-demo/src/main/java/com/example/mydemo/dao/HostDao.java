@@ -16,4 +16,5 @@ public interface HostDao {
     List<Host> selectHost(HostFilter filter) throws BaseException;
     void updateHostAdminAccount(HostAdminAccount hostAdminAccount) throws BaseException;
     List<HostAdminAccount> selectHostAdminAccount(HostAdminAccountFilter filter) throws BaseException;
+    HostAdminAccount selectHostAdminAccount(String ip) throws BaseException;
 }

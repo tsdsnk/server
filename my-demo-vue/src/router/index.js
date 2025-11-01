@@ -12,10 +12,7 @@ const router = createRouter({
                     path: "host",
                     component: () => import("../views/user/Host.vue")
                 },
-                {
-                    path: "logout",
-                    redirect: "/logout"
-                }
+                
             ]
         },
         {
@@ -34,19 +31,12 @@ const router = createRouter({
                     path: "application",
                     component: () => import('../views/admin/Application.vue')
                 },
-                {
-                    path: "logout",
-                    redirect: "/logout"
-                }
+            
             ]
         },
         {
             path: "/login",
             component: () => import("../views/Login.vue")
-        },
-        {
-            path: "/logout",
-            component: () => import("../views/Logout.vue")
         },
         {
             path: "/",
